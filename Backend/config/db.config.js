@@ -4,6 +4,7 @@ module.exports = {
   PASSWORD: '',
   DB: 'done_list_app',
   dialect: 'mysql',
+  jwtSecret: 'randomstring',
   pool: {
     max: 5,
     min: 0,

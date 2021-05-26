@@ -12,6 +12,7 @@
         "ecmaVersion": 12
     },
     "rules": {
+        // "treatUndefinedAsUnspecified": true,
         "no-console": "off",
         "global-require": 0,
         "max-len": ["error", { "code": 150 }]

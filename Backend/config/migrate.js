@@ -1,4 +1,4 @@
-const db = require('../src/model');
+const db = require('../src/models');
 
 db.sequelize.sync();
 
