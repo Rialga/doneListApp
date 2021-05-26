@@ -3,9 +3,9 @@ const db = require('../models');
 const Activity = db.activity;
 
 exports.allData = (req, res) => {
-  const userId = 1;
-
-  Activity.findAll({ where: { user_id: userId } })
+  const userId = req.query.id;
+  const condtion = userId ? { user_id: userId } : null;
+  Activity.findAll({ where: condtion })
     .then((data) => {
       res.status(200).send({
         message: 'success mendapatkan data',
@@ -21,16 +21,14 @@ exports.allData = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  const userId = 1;
-
-  if (!req.body.activity_name) {
+  if (!req.body.activity_name || !req.body.user_id) {
     res.status(400).send({
       message: 'Konten Tidak Boleh Kosong!',
     });
   } else {
     const dataRequest = {
       activity_name: req.body.activity_name,
-      user_id: userId,
+      user_id: req.body.user_id,
     };
 
     Activity.create(dataRequest)
