@@ -32,10 +32,9 @@ exports.create = (req, res) => {
     };
 
     Activity.create(dataRequest)
-      .then((data) => {
+      .then(() => {
         res.status(200).send({
           message: 'success add Activity',
-          data,
         });
       })
       .catch((err) => {

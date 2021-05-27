@@ -1,4 +1,4 @@
-package com.example.donelistapp.Response;
+package com.example.donelistapp.Models;
 
 import com.google.gson.annotations.SerializedName;
 

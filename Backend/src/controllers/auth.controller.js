@@ -68,10 +68,9 @@ exports.signUp = (req, res) => {
           });
         } else {
           User.create(dataRequest)
-            .then((data) => {
+            .then(() => {
               res.status(200).send({
                 message: 'success add user',
-                data,
               });
             })
             .catch((err) => {
@@ -83,10 +82,4 @@ exports.signUp = (req, res) => {
         }
       });
   }
-};
-
-exports.logOut = (req, res) => {
-  const { token } = req.body;
-  refreshTokens = refreshTokens.filter(token => t !== token);
-  res.send('logout sukses');
 };

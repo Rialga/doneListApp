@@ -4,7 +4,6 @@ module.exports = (app) => {
   const router = require('express').Router();
   router.post('/signup', auth.signUp);
   router.post('/signin', auth.signIn);
-  router.post('/logout', auth.logOut);
 
   app.use('/api/auth', router,
     (req, res, next) => {
