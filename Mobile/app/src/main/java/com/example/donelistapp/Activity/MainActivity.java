@@ -1,8 +1,10 @@
-package com.example.donelistapp;
+package com.example.donelistapp.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.donelistapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
