@@ -86,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
                     userPrefManager.saveId(id);
                     tokenPrefManager.saveToken(accessToken);
 
-                    Toast.makeText(HomeActivity.this, nama + id + accessToken, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(HomeActivity.this, nama + id + accessToken, Toast.LENGTH_SHORT).show();
 
                     startLandingPageActivity();
                 }
@@ -101,7 +101,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AktivitasResponse> call, Response<AktivitasResponse> response) {
                 if(response.isSuccessful()) {
-                    String message = response.message();
+                    String message = response.body().getMessage();
 
                     Toast.makeText(HomeActivity.this, "Message: " + message, Toast.LENGTH_SHORT).show();
 

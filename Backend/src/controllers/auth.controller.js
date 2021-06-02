@@ -8,51 +8,45 @@ const User = db.user;
 
 exports.signIn = (req, res) => {
   if (!req.body.email || !req.body.password) {
-    res.status(400).send({
-      message: 'Konten Tidak Boleh Kosong!',
-    });
-  }
+    res.status(400).send('Konten Tidak Boleh Kosong');
+  } else {
+    User.findOne({ where: { email: req.body.email } })
+      .then((user) => {
+        if (!user) {
+          res.status(401).send('User Tidak Ditemukan');
+        } else {
+          const passwordIsValid = bcrypt.compareSync(
+            req.body.password,
+            user.password,
+          );
 
-  User.findOne({ where: { email: req.body.email } })
-    .then((user) => {
-      if (!user) {
-        res.status(200).send({
-          message: 'User Tidak Ditemukan',
-        });
-      } else {
-        const passwordIsValid = bcrypt.compareSync(
-          req.body.password,
-          user.password,
-        );
+          if (!passwordIsValid) {
+            return res.status(401).send('Password Salah!');
+          }
 
-        if (!passwordIsValid) {
-          return res.status(401).send({
-            accessToken: null,
-            message: 'Password Salah!',
+          const token = jwt.sign({ id: user.id }, config.secret, {
+            expiresIn: 86400, // 24 hours
+          });
+
+          res.status(200).send({
+            message: 'Login success',
+            data: [{
+              id: user.id,
+              nama: user.nama,
+              email: user.email,
+              accessToken: token,
+            }],
           });
         }
-
-        const token = jwt.sign({ id: user.id }, config.secret, {
-          expiresIn: 86400, // 24 hours
-        });
-
-        res.status(200).send({
-          id: user.id,
-          nama: user.nama,
-          email: user.email,
-          accessToken: token,
-        });
-      }
-    }).catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
+      }).catch((err) => {
+        res.status(500).send({ message: err.message });
+      });
+  }
 };
 
 exports.signUp = (req, res) => {
   if (!req.body.nama || !req.body.email || !req.body.password) {
-    res.status(400).send({
-      message: 'Konten Tidak Boleh Kosong!',
-    });
+    res.status(400).send('Konten Tidak Boleh Kosong!');
   } else {
     const dataRequest = {
       nama: req.body.nama,
@@ -63,9 +57,7 @@ exports.signUp = (req, res) => {
     User.findOne({ where: { email: req.body.email } })
       .then((user) => {
         if (user) {
-          res.status(400).send({
-            message: 'Failed! Email Sudah Ada!',
-          });
+          res.status(400).send('Failed! Email Sudah Ada!');
         } else {
           User.create(dataRequest)
             .then(() => {

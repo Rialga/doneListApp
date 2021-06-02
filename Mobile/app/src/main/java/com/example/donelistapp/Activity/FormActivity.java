@@ -17,6 +17,8 @@ import com.example.donelistapp.Services.RestClient;
 import com.example.donelistapp.Services.TokenPrefManager;
 import com.example.donelistapp.Services.UserPrefManager;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,7 +68,15 @@ public class FormActivity extends AppCompatActivity {
                 postData.enqueue(new Callback<AktivitasResponse>() {
                     @Override
                     public void onResponse(Call<AktivitasResponse> call, Response<AktivitasResponse> response) {
-                        startHome();
+                        if(response.isSuccessful()) {
+                            startHome();
+                        }else{
+                            try {
+                                Toast.makeText(FormActivity.this, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
 
                     @Override

@@ -5,7 +5,7 @@ const Activity = db.activity;
 exports.allData = (req, res) => {
   const userId = req.query.id;
   const condtion = userId ? { user_id: userId } : null;
-  Activity.findAll({ where: condtion })
+  Activity.findAll({ where: condtion, order: [['CreatedAt', 'DESC']] })
     .then((data) => {
       res.status(200).send({
         message: 'success mendapatkan data',
@@ -22,9 +22,7 @@ exports.allData = (req, res) => {
 
 exports.create = (req, res) => {
   if (!req.body.activity_name || !req.body.user_id) {
-    res.status(400).send({
-      message: 'Konten Tidak Boleh Kosong!',
-    });
+    res.status(400).send('Konten Tidak Boleh Kosong!');
   } else {
     const dataRequest = {
       activity_name: req.body.activity_name,

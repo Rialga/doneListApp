@@ -12,9 +12,10 @@ tools:context=".Activity.HomeActivity">
 
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="500dp"
     android:orientation="vertical"
-    android:layout_marginLeft="10dp">
+    android:layout_marginLeft="10dp"
+    tools:ignore="MissingConstraints">
 
     <Button
         android:id="@+id/btn_logout"
@@ -41,7 +42,7 @@ tools:context=".Activity.HomeActivity">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_aktivitas"
         android:layout_width="354dp"
-        android:layout_height="540dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="40sp" />
 
 </LinearLayout>

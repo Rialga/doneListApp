@@ -1,50 +1,29 @@
 package com.example.donelistapp.Models;
 
+import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse{
 
-	@SerializedName("nama")
-	private String nama;
+	@SerializedName("data")
+	private List<LoginDataItem> data;
 
-	@SerializedName("id")
-	private int id;
+	@SerializedName("message")
+	private String message;
 
-	@SerializedName("accessToken")
-	private String accessToken;
-
-	@SerializedName("email")
-	private String email;
-
-	public void setNama(String nama){
-		this.nama = nama;
+	public void setData(List<LoginDataItem> data){
+		this.data = data;
 	}
 
-	public String getNama(){
-		return nama;
+	public List<LoginDataItem> getData(){
+		return data;
 	}
 
-	public void setId(int id){
-		this.id = id;
+	public void setMessage(String message){
+		this.message = message;
 	}
 
-	public int getId(){
-		return id;
-	}
-
-	public void setAccessToken(String accessToken){
-		this.accessToken = accessToken;
-	}
-
-	public String getAccessToken(){
-		return accessToken;
-	}
-
-	public void setEmail(String email){
-		this.email = email;
-	}
-
-	public String getEmail(){
-		return email;
+	public String getMessage(){
+		return message;
 	}
 }
