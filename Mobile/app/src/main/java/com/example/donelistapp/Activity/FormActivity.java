@@ -60,11 +60,11 @@ public class FormActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String aktivitasValue = aktivitas.getText().toString();
-
-//                Toast.makeText(FormActivity.this, aktivitasValue + id, Toast.LENGTH_SHORT).show();
-
+                if(aktivitasValue.isEmpty()){
+                    aktivitas.setError("Field aktivitas tidak Boleh Kosong");
+                    return;
+                }
                 Call<AktivitasResponse> postData = RestClient.getService().postAktivitas(token,id,aktivitasValue);
-
                 postData.enqueue(new Callback<AktivitasResponse>() {
                     @Override
                     public void onResponse(Call<AktivitasResponse> call, Response<AktivitasResponse> response) {
@@ -83,11 +83,8 @@ public class FormActivity extends AppCompatActivity {
                     public void onFailure(Call<AktivitasResponse> call, Throwable t) {
                         Toast.makeText(FormActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
                 });
-
             }
-
 
         });
 
@@ -98,5 +95,12 @@ public class FormActivity extends AppCompatActivity {
     public void startHome(){
         Intent intent = new Intent(FormActivity.this, HomeActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startHome();
+        EditText aktivity = findViewById(R.id.et_aktivitas);
+        aktivity.setText("");
     }
 }

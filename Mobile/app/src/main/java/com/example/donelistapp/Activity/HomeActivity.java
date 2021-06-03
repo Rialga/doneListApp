@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -101,9 +103,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AktivitasResponse> call, Response<AktivitasResponse> response) {
                 if(response.isSuccessful()) {
-                    String message = response.body().getMessage();
 
-                    Toast.makeText(HomeActivity.this, "Message: " + message, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(HomeActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                     listItem = response.body().getData();
 
@@ -112,7 +113,7 @@ public class HomeActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 }
                 else {
-                    Toast.makeText(HomeActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(HomeActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -126,5 +127,11 @@ public class HomeActivity extends AppCompatActivity {
     private void startLandingPageActivity() {
         Intent intent = new Intent(HomeActivity.this, LandingPageActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(false);
+//        System.exit(0);
     }
 }
